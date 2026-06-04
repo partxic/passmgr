@@ -17,6 +17,10 @@ defineEmits(['save', 'cancel'])
 
 <template>
     <el-form label-width="auto" style="max-width: 600px">
+        <el-form-item label="名称">
+            <el-input v-model="data.name" />
+        </el-form-item>
+
         <el-form-item label="用户名">
             <el-input v-model="data.username" />
         </el-form-item>
