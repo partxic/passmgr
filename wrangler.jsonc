@@ -1,5 +1,5 @@
 {
-    "name": "express-vue-starter",
+    "name": "passmgr",
     "main": "src/app.js",
     "compatibility_date": "2026-06-03",
     "compatibility_flags": ["nodejs_compat"],
