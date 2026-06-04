@@ -1,3 +1,3 @@
-# cfworker-express-vue-starter
+# passmgr
 
-Cloudflare Worker 上的 Express + Vue 开始代码
+Cloudflare Worker 上运行的密码管理器
