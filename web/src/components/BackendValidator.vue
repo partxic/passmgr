@@ -26,16 +26,11 @@ onMounted(validate)
 </script>
 
 <template>
-    <el-dialog v-model="dialogVisible" align-center :show-close="false" :before-close="_ => {}">
-        <div class="container">
+    <el-dialog v-model="dialogVisible" align-center :show-close="false" :close-on-click-modal="false" :close-on-press-escape="false" :header-class="'display-none'">
+        <div class="flex-center">
             <el-button :loading="isLoading" @click="validate">验证后端配置</el-button>
         </div>
     </el-dialog>
 </template>
 
-<style scoped>
-.container {
-    display: flex;
-    justify-content: center;
-}
-</style>
+<style scoped></style>
