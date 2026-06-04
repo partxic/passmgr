@@ -7,11 +7,11 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
-const backendOK = ref(false)
+const backendOk = ref(false)
 const router = useRouter()
 
-watch(backendOK, async isok => {
-    if (!isok) return
+watch(backendOk, async isOk => {
+    if (!isOk) return
 
     try {
         const res = await axios.get('/api/auth/status')
@@ -26,8 +26,8 @@ watch(backendOK, async isok => {
 </script>
 
 <template>
-    <BackendValidator v-model="backendOK" />
-    <router-view v-if="backendOK" />
+    <BackendValidator v-model="backendOk" />
+    <router-view v-if="backendOk" />
 </template>
 
 <style scoped></style>
