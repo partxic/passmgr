@@ -4,11 +4,12 @@ document.title = '加载中...'
 import { ref, watch } from 'vue'
 import BackendValidator from '@/components/BackendValidator.vue'
 import axios from 'axios'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
 const backendOk = ref(false)
 const router = useRouter()
+const route = useRoute()
 
 watch(backendOk, async isOk => {
     if (!isOk) return
@@ -17,7 +18,7 @@ watch(backendOk, async isOk => {
         const res = await axios.get('/api/auth/status')
 
         ElMessage.success(res.data)
-        router.push({ name: 'dashboard' })
+        router.push({ name: route.name })
     } catch (error) {
         ElMessage.error(error.response.data)
         router.push({ name: 'login' })

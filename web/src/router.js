@@ -11,7 +11,19 @@ export default createRouter({
         {
             path: '/dashboard',
             name: 'dashboard',
-            component: () => import('@/view/Dashboard.vue')
+            component: () => import('@/view/Dashboard.vue'),
+            children: [
+                {
+                    path: 'list',
+                    name: 'dash-list-account',
+                    component: () => import('@/view/dashboard/ListAccount.vue')
+                },
+                {
+                    path: 'create',
+                    name: 'dash-account-create',
+                    component: () => import('@/view/dashboard/AccountCreate.vue')
+                }
+            ]
         }
     ]
 })
