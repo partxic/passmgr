@@ -22,8 +22,14 @@ app.use('/api', api)
 import { getenv } from './cfenv.js'
 const env = getenv()
 
+api.use((req, res, next) => {
+    if (typeof env.password !== 'string' || env.password === '') return res.status(500).send('密码配置错误')
+    if (typeof env.jwt_secret !== 'string' || env.jwt_secret === '') return res.status(500).send('加密密钥配置错误')
+    if (typeof env.data === 'undefined') return res.status(500).send('存储未绑定')
+    return next()
+})
+
 api.get('/ping', (req, res) => {
-    console.log('worker env will be here:', env)
     return res.status(200).send('pong')
 })
 
