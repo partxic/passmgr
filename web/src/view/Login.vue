@@ -31,7 +31,7 @@ const doLogin = async () => {
     <div class="container flex-center">
         <el-form :model="form" label-width="auto" style="max-width: 600px">
             <el-form-item label="密码">
-                <el-input v-model="form.password" />
+                <el-input v-model="form.password" type="password" show-password />
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" class="submit-button" :loading="loading" @click="doLogin">登录</el-button>
