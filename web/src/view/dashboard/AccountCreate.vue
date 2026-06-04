@@ -18,7 +18,7 @@ const data = reactive({
 const saveAccount = async () => {
     try {
         loading.value = true
-        const res = await axios.post(`/api/account/set?name=${data.name}`, data)
+        const res = await axios.post(`/api/account/set`, data)
         ElMessage.success(res.data)
     } catch (error) {
         ElMessage.error(error.response.data)

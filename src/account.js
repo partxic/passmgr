@@ -36,12 +36,11 @@ account.get('/delete', needauth, async (req, res) => {
 })
 
 account.post('/set', needauth, async (req, res) => {
-    const name = req.query.name
+    const { name, username, password, totp, note } = req.body
+
     if (typeof name !== 'string' || name === '') {
         return res.status(400).send('参数错误')
     }
-
-    const { username, password, totp, note } = req.body
 
     if (typeof username !== 'string' || username === '' || typeof password !== 'string' || password === '') {
         return res.status(400).send('数据错误')
