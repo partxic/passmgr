@@ -93,7 +93,7 @@ onMounted(refresh)
             </div>
         </template>
         <AccountEditor v-if="inEdit" :data="accountData" :loading="loading" @save="updateAccount" @cancel="showDialog = false" />
-        <AccountViewer v-else />
+        <AccountViewer v-else :data="accountData" />
     </el-dialog>
 </template>
 

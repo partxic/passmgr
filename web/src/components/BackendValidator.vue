@@ -3,7 +3,7 @@ import { ref, defineModel, onMounted, computed } from 'vue'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
-const isOk = defineModel({ type: Boolean, default: false })
+const isOk = defineModel({ type: Boolean, required: true })
 const isLoading = ref(false)
 const dialogVisible = computed(() => !isOk.value)
 
