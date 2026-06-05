@@ -4,6 +4,10 @@ import AccountViewer from '@/components/AccountViewer.vue'
 import { ref, onMounted, reactive, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import axios from 'axios'
+import { useWindowSize } from '@vueuse/core'
+
+const { width: windowWidth } = useWindowSize()
+const isSmallWidth = computed(() => windowWidth.value <= 768)
 
 const loading = ref(false)
 const accounts = ref([])
@@ -79,7 +83,7 @@ onMounted(refresh)
     <div class="account-list">
         <el-button v-for="account in filteredAccounts" @click="showAccount(account)" class="account-item" plain>{{ account }}</el-button>
     </div>
-    <el-dialog v-model="showDialog" align-center>
+    <el-dialog v-model="showDialog" :width="isSmallWidth ? '90%' : '500px'" align-center>
         <template #header>
             <div class="align-center">
                 <span>账号详情</span>
