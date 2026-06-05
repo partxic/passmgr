@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "https://passmgr.partxi.workers.dev/$1"
+        }
+    ]
+}
