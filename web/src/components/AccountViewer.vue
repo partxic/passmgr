@@ -21,7 +21,7 @@ const data = JSON.parse(JSON.stringify(props.data))
             <el-text size="large">密码</el-text>
             <ShowPassword class="flex-1" :value="data.password" />
         </div>
-        <div class="item">
+        <div v-if="data.totp" class="item">
             <el-text size="large">一次性密码</el-text>
             <div class="flex-1" />
             <el-text size="large">
