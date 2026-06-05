@@ -23,7 +23,8 @@ onMounted(async () => {
                 const res = await axios.get('/api/auth/status')
 
                 ElMessage.success(res.data)
-                router.push({ name: route.name || 'dashboard' })
+                if (!route.name || route.name === 'login') router.push({ name: 'dashboard' })
+                else router.push({ name: route.name })
             } catch (error) {
                 ElMessage.error(error.response.data)
                 router.push({ name: 'login' })
