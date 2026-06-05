@@ -3,8 +3,12 @@ import { defineProps } from 'vue'
 import ShowPassword from '@/components/ShowPassword.vue'
 import ShowTotp from '@/components/ShowTotp.vue'
 
-const props = defineProps({ data: { type: Object, required: true } })
-const data = JSON.parse(JSON.stringify(props.data))
+defineProps({
+    data: {
+        type: Object,
+        required: true
+    }
+})
 </script>
 
 <template>
