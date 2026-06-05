@@ -1,5 +1,7 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import AccountEditor from '@/components/AccountEditor.vue'
+import AccountViewer from '@/components/AccountViewer.vue'
+import { ref, onMounted, reactive, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import axios from 'axios'
 
@@ -11,6 +13,16 @@ const filteredAccounts = computed(() => {
     if (!filter.value.trim()) return accounts.value
     const keyword = filter.value.toLowerCase()
     return accounts.value.filter(account => account.toLowerCase().includes(keyword))
+})
+
+const showDialog = ref(false)
+const inEdit = ref(false)
+const accountData = reactive({
+    name: '',
+    username: '',
+    password: '',
+    totp: '',
+    note: ''
 })
 
 const refresh = async () => {
@@ -28,27 +40,64 @@ const refresh = async () => {
 }
 
 const showAccount = async account => {
-    console.log(account)
+    try {
+        loading.value = true
+        const res = await axios.get(`/api/account/info?name=${account}`)
+
+        Object.assign(accountData, { name: account, ...res.data })
+        inEdit.value = false
+        showDialog.value = true
+        ElMessage.success('信息获取成功')
+    } catch (error) {
+        ElMessage.error(error.response.data)
+    } finally {
+        loading.value = false
+    }
+}
+
+const updateAccount = async () => {
+    try {
+        loading.value = true
+        const res = await axios.post('/api/account/set', accountData)
+        ElMessage.success(res.data)
+    } catch (error) {
+        ElMessage.error(error.response.data)
+    } finally {
+        loading.value = false
+    }
 }
 
 onMounted(refresh)
 </script>
 
 <template>
-    <div class="top">
+    <div class="align-center">
         <el-button type="primary" :loading="loading" @click="refresh">刷新</el-button>
-        <div style="flex: 1" />
+        <div class="flex-1" />
         <el-input v-model="filter" style="width: 240px" placeholder="搜索" clearable />
     </div>
     <div class="account-list">
         <el-button v-for="account in filteredAccounts" @click="showAccount(account)" class="account-item" plain>{{ account }}</el-button>
     </div>
+    <el-dialog v-model="showDialog" align-center>
+        <template #header>
+            <div class="align-center">
+                <span>账号详情</span>
+                <div class="flex-1" />
+                <el-switch v-model="inEdit" />
+                <span>编辑</span>
+            </div>
+        </template>
+        <AccountEditor v-if="inEdit" :data="accountData" :loading="loading" @save="updateAccount" @cancel="showDialog = false" />
+        <AccountViewer v-else />
+    </el-dialog>
 </template>
 
 <style scoped>
-.top {
+.align-center {
     display: flex;
     align-items: center;
+    column-gap: 5px;
 }
 
 .account-list {
