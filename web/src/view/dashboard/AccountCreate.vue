@@ -15,6 +15,10 @@ const data = reactive({
     note: ''
 })
 
+const goAccountList = () => {
+    router.push({ name: 'dash-list-account' })
+}
+
 const saveAccount = async () => {
     try {
         loading.value = true
@@ -24,11 +28,8 @@ const saveAccount = async () => {
         ElMessage.error(error.response.data)
     } finally {
         loading.value = false
+        goAccountList()
     }
-}
-
-const goAccountList = () => {
-    router.push({ name: 'dash-list-account' })
 }
 </script>
 
